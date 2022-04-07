@@ -20,10 +20,19 @@
                            <tr>
                                <td>{{$post->id}}</td>
                                <td>{{$post->title}}</td>
-                               <td>{{substring($post->content, 0, 30)}}</td>
+                               <td>{{substr($post->content, 0, 30)}}</td>
                                <td>{{$post->slug}}</td>
-                               <a href="{{ route('admin.posts.show', $post->id) }}" class="btn btn-primary">Vedi</a>
-                               <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-secondary">Modifica</a>
+                               <td class="d-flex">
+                                    <a href="{{ route('admin.posts.show', $post->id) }}" class="btn btn-primary">Vedi</a>
+                                    <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-secondary mx-2">Modifica</a>
+                                    <form method="POST" action="{{route('admin.posts.destroy', $post->id)}}">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button type="submit" class="btn btn-danger">Elimina</button>
+
+                                    </form>
+                               </td>
                            </tr>
                        @endforeach
                     </tbody>
